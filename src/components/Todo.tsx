@@ -18,26 +18,20 @@ const Todo: React.FC<TodoProps> = (props) => {
   return (
     <li className="todo list-group-item">
       <div className="todo-main" onClick={handleToggleClick}>
-        <div className="custom-control custom-checkbox my-1 mr-sm-2">
-          <input
-            type="checkbox"
-            className="custom-control-input"
-            id={`checkbox${props.id}`}
-            checked={props.checked}
-            onChange={handleToggleClick}
-          />
-          <label
-            className="custom-control-label" 
-            htmlFor={`checkbox${props.id}`}
-          > {props.text} </label>
-        </div>
-        <div className="todo-create-data">
+        <input
+          type="checkbox"
+          className="todo-checkbox"
+          checked={props.checked}
+          onChange={() => {}}
+        />
+        <p>{props.text}</p>
+        <div className="todo-create-date">
           <p>{props.timeCreate}</p>
         </div>
       </div>
-      <button type="button" className="close" onClick={handleCloseClick}>
-        <span aria-hidden="true">&times;</span>
-      </button>
+      <a className="link-close" href="#" onClick={handleCloseClick}>
+        <img className="link-img-close" src="./img/trash-solid.svg"/>
+      </a>
     </li>
   )
 }

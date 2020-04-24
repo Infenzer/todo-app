@@ -9,7 +9,12 @@ const AddTodo: React.FC<any> = () => {
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
 
-    dispatch(addTodo(value, new Date().toLocaleDateString()))
+    //console.log(value.trim())
+
+    const date = new Date()
+    const dateString = `${date.toDateString()}, (${date.toLocaleTimeString()})`
+
+    dispatch(addTodo(value, dateString))
     setValue('')
   }
 

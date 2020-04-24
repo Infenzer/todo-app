@@ -10,7 +10,6 @@ export interface ITodo {
 }
 
 export type TodosState = ITodo[]
-
 type ActionType = IAddTodo | IDeleteTodo | IToggleTodo
 
 const todos = (state: TodosState = [], action: ActionType): TodosState => {
