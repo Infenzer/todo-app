@@ -1,16 +1,19 @@
 import React from 'react'
-import { TodosState } from '../redux/reducers/todos'
 import Todo from './Todo'
-
-interface TodoListProps {
-  todos: TodosState
-}
+import { TodoListProps } from '../containers/VisibleTodoList'
 
 const TodoList: React.FC<TodoListProps> = (props) => {
   return(
     <div className="todo-list-container">
       <ul className="list-group">
-        {props.todos.map(todo => <Todo key={todo.id} {...todo}/>)}
+        {props.todos.map(todo => {
+          return (<Todo
+            key={todo.id} 
+            {...todo} 
+            onDeleteClick={props.deleteTodo}
+            onToggleTodo={props.toggleTodo}
+          />)
+        })}
       </ul>
     </div>
   )
