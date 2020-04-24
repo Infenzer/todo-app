@@ -9,13 +9,13 @@ const AddTodo: React.FC<any> = () => {
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
 
-    dispatch(addTodo(value))
+    dispatch(addTodo(value, new Date().toLocaleDateString()))
     setValue('')
   }
 
   return(
-    <form className="form-row">
-      <div className="col">
+    <form className="form add-todo">
+      <div className="input-wrapper">
         <input 
           className="form-control form-control-lg" 
           type="text" 
@@ -24,7 +24,7 @@ const AddTodo: React.FC<any> = () => {
           onChange={(e) => setValue(e.target.value)}
         />
       </div>
-      <div className="col-2 d-flex align-items-center">
+      <div className="btn-wrapper">
         <button 
           type="submit" 
           className="btn btn-primary"
@@ -35,6 +35,4 @@ const AddTodo: React.FC<any> = () => {
   )
 }
 
-const connector = connect(null)
-
-export default connector(AddTodo)
+export default AddTodo

@@ -1,9 +1,10 @@
 import { IAddTodo } from "../actions/addTodo"
 
-interface ITodo {
+export interface ITodo {
   text: string
   id: number
   checked: boolean
+  timeCreate: string
 }
 
 export type TodosState = ITodo[]
@@ -16,7 +17,8 @@ const todos = (state: TodosState = [], action: IAddTodo): TodosState => {
         {
           id: action.id,
           checked: false,
-          text: action.payload.text
+          text: action.payload.text,
+          timeCreate: action.payload.timeCreate
         }
       ]
     default: return state

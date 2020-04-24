@@ -5,16 +5,18 @@ export interface IAddTodo {
   id: number
   payload: {
     text: string
+    timeCreate: string
   }
 }
 
 let calcId = 0
 
-const addTodo = (text: string): IAddTodo => ({
+const addTodo = (text: string, timeCreate: string): IAddTodo => ({
   type: ADD_TODO,
   id: calcId++,
   payload: {
-    text
+    text,
+    timeCreate,
   }
 })
 
