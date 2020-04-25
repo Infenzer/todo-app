@@ -1,5 +1,6 @@
 import React from 'react'
 import { AlertProps } from '../containers/VisibleAlert'
+import {CSSTransition} from 'react-transition-group'
 
 const Alert: React.FC<AlertProps> = (props) => {
   const handleClick = () => {
@@ -11,28 +12,35 @@ const Alert: React.FC<AlertProps> = (props) => {
   switch (props.type) {
     case 'ERROR':
       type = 'Ошибка!'
-      className = "alert alert-danger alert-dismissible fade show"
+      className = "alert alert-danger alert-dismissible"
       break
     case 'SUCCESS':
       type = 'Успех!'
-      className = "alert alert-success alert-dismissible fade show"
+      className = "alert alert-success alert-dismissible"
       break
     case 'WARNING': 
       type = 'Внимание!'
-      className = "alert alert-warning alert-dismissible fade show"
+      className = "alert alert-warning alert-dismissible"
       break
   }
   return (
-    <React.Fragment>
-      {props.visible && (
-        <div className={className} role="alert">
+    <CSSTransition
+      in={props.visible}
+      timeout={{
+        enter: 150,
+        exit: 350
+      }}
+      classNames={'alert'}
+      mountOnEnter
+      unmountOnExit
+    >
+      <div className={className} role="alert">
           <strong> {type} </strong> {props.text}
           <button type="button" className="close" onClick={() => handleClick()} aria-label="Close">
             <span>&times;</span>
           </button>
         </div>
-      )}
-    </React.Fragment>
+    </CSSTransition>
   )
 }
 

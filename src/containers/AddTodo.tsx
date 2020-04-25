@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
-import { connect, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import addTodo from '../redux/actions/addTodo'
 import showAlert from '../redux/actions/showAlert'
+import hideAlert from '../redux/actions/hideAlert'
 
 const AddTodo: React.FC<any> = () => {
   const dispatch = useDispatch()
@@ -20,6 +21,10 @@ const AddTodo: React.FC<any> = () => {
       setValue('')
       dispatch(showAlert('SUCCESS', 'Заметка создана'))
     }
+
+    setTimeout(() => {
+      dispatch(hideAlert())
+    }, 2000);
   }
 
   return(
