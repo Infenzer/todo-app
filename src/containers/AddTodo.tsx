@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { connect, useDispatch } from 'react-redux'
 import addTodo from '../redux/actions/addTodo'
+import showAlert from '../redux/actions/showAlert'
 
 const AddTodo: React.FC<any> = () => {
   const dispatch = useDispatch()
@@ -9,13 +10,16 @@ const AddTodo: React.FC<any> = () => {
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
 
-    //console.log(value.trim())
-
     const date = new Date()
     const dateString = `${date.toDateString()}, (${date.toLocaleTimeString()})`
 
-    dispatch(addTodo(value, dateString))
-    setValue('')
+    if (value.trim() === '') {
+      dispatch(showAlert('WARNING', 'Введите название заметки.'))
+    } else {
+      dispatch(addTodo(value, dateString))
+      setValue('')
+      dispatch(showAlert('SUCCESS', 'Заметка создана'))
+    }
   }
 
   return(
