@@ -11,20 +11,21 @@ const Todo: React.FC<TodoProps> = (props) => {
     props.onDeleteClick(props.id)
   }
   
-  const handleToggleClick = () => {
+  const handleToggleClick = (e: React.MouseEvent<HTMLDivElement>) => {
     props.onToggleTodo(props.id)
+    e.currentTarget.classList.toggle('checked')
   }
 
   return (
     <li className="todo list-group-item">
-      <div className="todo-main" onClick={handleToggleClick}>
+      <div className="todo-main" onClick={(e) => handleToggleClick(e)}>
         <input
           type="checkbox"
           className="todo-checkbox"
           checked={props.checked}
           onChange={() => {}}
         />
-        <p>{props.text}</p>
+        <p className="text">{props.text}</p>
         <div className="todo-create-date">
           <p>{props.timeCreate}</p>
         </div>
