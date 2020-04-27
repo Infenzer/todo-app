@@ -1,0 +1,5 @@
+{
+  "port": "3000",
+  "mongoURI": "mongodb+srv://vitaliy:1234@cluster0-immbt.mongodb.net/test?retryWrites=true&w=majority",
+  "jwtSecret": "superSecret"
+}

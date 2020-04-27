@@ -1,12 +1,12 @@
 const path = require('path')
+const webpack = require('webpack')
 const HTMLWebpackPlugin = require('html-webpack-plugin')
 const {CleanWebpackPlugin} = require('clean-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
-//const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 const isDev = process.env.NODE_ENV == 'dev '
-const isProd = !isDev
+const isProd = false //!isDev
 
 const cssLoaders = extra => {
   const loaders = [
@@ -27,15 +27,18 @@ const cssLoaders = extra => {
 }
 
 module.exports = {
-  context: path.resolve(__dirname, 'src'),
+  context: path.resolve(__dirname, 'client', 'src'),
   mode: 'development',
   entry: {
-    main: ['./index.tsx'],
+    main: [
+      'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true',
+      './index.tsx'
+    ],
   },
 
   output: {
     filename: '[name].js', //'[name].[contenthash].js'
-    path: path.resolve(__dirname, 'public'),
+    path: path.resolve(__dirname, 'client', 'public'),
     publicPath: '/',
   },
 
@@ -48,12 +51,6 @@ module.exports = {
       '.js',
       '.json',
     ],
-  },
-
-  devServer: {
-    port: 8080,
-    contentBase: path.join(__dirname, 'public'),
-    historyApiFallback: true,
   },
 
   plugins: [
@@ -73,14 +70,16 @@ module.exports = {
     
     new CleanWebpackPlugin(),
 
-    //new BundleAnalyzerPlugin(),
-
     new MiniCssExtractPlugin({
       filename: '[name].css',
-      minify: {
-        collapseWhitespace: isProd
-      }
+      // minify: {
+      //   collapseWhitespace: isProd
+      // }
     }),
+
+    new webpack.optimize.OccurrenceOrderPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoEmitOnErrorsPlugin()
   ],
 
   module: {
