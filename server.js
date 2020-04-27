@@ -8,12 +8,12 @@ const app = express()
 const webpackConfig = require('./webpack.config.js');
 const compiler = webpack(webpackConfig);
 
+app.use(express.static(path.resolve(__dirname, 'client', 'public')))
+
 app.use(require('webpack-dev-middleware')(compiler, {
   publicPath: webpackConfig.output.publicPath,
 }));
 app.use(require("webpack-hot-middleware")(compiler));
-
-// app.use(express.static(path.resolve(__dirname, 'client', 'public')))
 
 // app.use('/api/auth', require('./routes/auth.routes'))
 

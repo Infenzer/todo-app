@@ -13,7 +13,7 @@ const cssLoaders = extra => {
     {
       loader: MiniCssExtractPlugin.loader,
       options: {
-        hmr: isDev,
+        hmr: true,
         reloadAll: true
       },
     },
