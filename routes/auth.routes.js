@@ -1,14 +1,45 @@
 const Router = require('express')
 const User = require('../models/User')
 const bcrypt = require('bcrypt')
-const validator = require('validator');
+const validator = require('validator')
+const jwt = require('jsonwebtoken')
+const config = require('config')
 
 const router = Router()
 
 // /api/auth/login
-router.post('/login', (req, res) => {
+router.post('/login', async (req, res) => {
   try {
-    
+    const {email, password} = req.body
+
+    const emailValid = validator.default.isEmail(email)
+    const passwordValid = validator.default.isLength(password, {min: 6, max: undefined})
+
+    if (!emailValid || !passwordValid) {
+      return res.status(400).json({
+        message: 'Некорректные данные при авторизации'
+      })
+    }
+
+    const user = await User.findOne({ email })
+    if (!user) {
+      return res.status(400).json({ message: "Такого пользователя не существует" })
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password)
+    if (!isMatch) {
+      return res.status(400).json({ message: 'Неверный пароль' })
+    }
+
+    const token = jwt.sign(
+      {userId: user.id},
+      config.get('jwtSecret'),
+      {expiresIn: '1h'}
+    )
+
+    console.log(token)
+
+    res.status(200).json({token, userId: user.id})
   } catch (e) {
     res.status(500).json({message: "Ошибка при авторизации"})
   }
@@ -22,11 +53,9 @@ router.post('/register', async (req, res) => {
     const emailValid = validator.default.isEmail(email)
     const passwordValid = validator.default.isLength(password, {min: 6, max: undefined})
 
-    console.log(emailValid, passwordValid)
-
     if (!emailValid || !passwordValid) {
       return res.status(400).json({
-        message: 'Некорректныйе данные при регистрации'
+        message: 'Некорректные данные при регистрации'
       })
     }
 

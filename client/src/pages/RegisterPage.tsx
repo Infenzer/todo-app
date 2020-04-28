@@ -12,8 +12,10 @@ const RegisterPage: React.FC = () => {
       password
     }).then(res => {
       console.log(res)
-    }).catch(res => {
-      console.log(res)
+      console.log(res.data.message)
+    }).catch(e => {
+      console.log(e.response)
+      console.log(e.response.data.message)
     })
 
     setEmail('')
