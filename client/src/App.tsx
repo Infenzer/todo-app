@@ -3,6 +3,7 @@ import {BrowserRouter, Switch, Route} from 'react-router-dom'
 import Main from './pages/Main'
 import './style/style.scss'
 import AuthPage from './pages/AuthPage'
+import RegisterPage from './pages/RegisterPage'
  
 const App: React.FC = () => {
   return (
@@ -10,6 +11,7 @@ const App: React.FC = () => {
       <Switch>
         <Route exact path = '/' component = {AuthPage}/>
         <Route path = '/main' component = {Main}/>
+        <Route path = '/register' component = {RegisterPage}/>
       </Switch>
     </BrowserRouter>
   )
