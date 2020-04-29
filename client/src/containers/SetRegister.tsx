@@ -6,6 +6,8 @@ import { RootState } from "../redux/reducers";
 export type RegisterFormProps = ConnectedProps<typeof connector>
 
 const mapStateToProps = (state: RootState) => ({
+  btnActive: state.loader.isLoading,
+  isRegister: state.register.isRegister
 })
 
 const mapDispatchToProps = dispatch => ({

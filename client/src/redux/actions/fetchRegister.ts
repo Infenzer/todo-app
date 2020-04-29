@@ -2,6 +2,8 @@ import Axios from "axios"
 import {REGISTER} from '../types'
 import showAlert from "./showAlert"
 import hideAlert from "./hideAlert"
+import showLoader from "./showLoader"
+import hideLoader from "./hideLoader"
 
 export interface IRegister {
   type: typeof REGISTER
@@ -13,13 +15,12 @@ const register = (): IRegister => ({
 
 const fetchRegister = (email: string, password: string) => {
   return dispatch => {
+    dispatch(showLoader())
+
     Axios.post('/api/auth/register', {email,password})
       .then(
         res => {
-          console.log(res)
-          console.log(res.data.message)
-
-          dispatch(showAlert('SUCCESS', res.data.message))
+          dispatch(showAlert('SUCCESS', `${res.data.message}. Идёт переадесация...` ))
           setTimeout(() => {
             dispatch(hideAlert())
             dispatch(register())
@@ -27,8 +28,7 @@ const fetchRegister = (email: string, password: string) => {
 
         },
         e => {
-          console.log(e.response)
-          console.log(e.response.data.message)
+          dispatch(hideLoader())
           dispatch(showAlert('ERROR', e.response.data.message))
 
           setTimeout(() => {

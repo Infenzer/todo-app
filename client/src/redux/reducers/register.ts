@@ -1,4 +1,4 @@
-import { IRegister } from "../actions/fetchRegister"
+import { IRegister} from "../actions/fetchRegister"
 
 export interface RegisterState {
   isRegister: boolean
@@ -7,7 +7,7 @@ export interface RegisterState {
 type ActionType = IRegister 
 
 const initialState: RegisterState = {
-  isRegister: false
+  isRegister: false,
 }
 
 const register = (state = initialState, action: ActionType): RegisterState => {

@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { RegisterFormProps } from '../containers/SetRegister'
+import { useHistory, Redirect } from 'react-router-dom'
 
 const RegisterForm: React.FC<RegisterFormProps> = (props) => {
   const [email, setEmail] = useState('')
@@ -10,6 +11,9 @@ const RegisterForm: React.FC<RegisterFormProps> = (props) => {
 
     props.onRegisterClick(email, password)
 
+    const histroy = useHistory()
+
+    histroy.push('/login')
     setEmail('')
     setPassword('')
   }
@@ -35,6 +39,7 @@ const RegisterForm: React.FC<RegisterFormProps> = (props) => {
           placeholder="Повторите пароль" 
         />
         <input 
+          disabled={props.btnActive}
           type="submit" 
           className="btn btn-primary"
           value="Регистрация" 
@@ -44,6 +49,9 @@ const RegisterForm: React.FC<RegisterFormProps> = (props) => {
       <div id="formFooter">
         <a className="underlineHover" href="/login">Уже есть аккаунт?</a>
       </div>
+      {props.isRegister && (
+        <Redirect to="/login"/>
+      )}
     </div>
   )
 }
