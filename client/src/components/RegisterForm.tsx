@@ -1,21 +1,24 @@
 import React, { useState } from 'react'
 import { RegisterFormProps } from '../containers/SetRegister'
-import { useHistory, Redirect } from 'react-router-dom'
+import {Redirect } from 'react-router-dom'
 
 const RegisterForm: React.FC<RegisterFormProps> = (props) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [secPassword, setSecPassword] = useState('')
 
   const handleClick = (e: React.MouseEvent<HTMLInputElement>) => {
     e.preventDefault()
 
-    props.onRegisterClick(email, password)
-
-    const histroy = useHistory()
-
-    histroy.push('/login')
+    if (secPassword === password) {
+      props.registerUser(email, password)
+    } else {
+      props.showAlert('WARNING', 'Пароли не совпадают')
+    }
+    
     setEmail('')
     setPassword('')
+    setSecPassword('')
   }
 
   return(
@@ -37,6 +40,8 @@ const RegisterForm: React.FC<RegisterFormProps> = (props) => {
         <input 
           type="password" 
           placeholder="Повторите пароль" 
+          value={secPassword}
+          onChange={(e) => setSecPassword(e.target.value)}
         />
         <input 
           disabled={props.btnActive}
