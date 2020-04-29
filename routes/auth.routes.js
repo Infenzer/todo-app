@@ -1,7 +1,7 @@
 const Router = require('express')
 const User = require('../models/User')
 const bcrypt = require('bcrypt')
-const validator = require('validator')
+const validator = require('validator').default
 const jwt = require('jsonwebtoken')
 const config = require('config')
 
@@ -12,8 +12,8 @@ router.post('/login', async (req, res) => {
   try {
     const {email, password} = req.body
 
-    const emailValid = validator.default.isEmail(email)
-    const passwordValid = validator.default.isLength(password, {min: 6, max: undefined})
+    const emailValid = validator.isEmail(email)
+    const passwordValid = validator.isLength(password, {min: 6, max: undefined})
 
     if (!emailValid || !passwordValid) {
       return res.status(400).json({
@@ -50,8 +50,8 @@ router.post('/register', async (req, res) => {
   try {
     const {email, password} = req.body
 
-    const emailValid = validator.default.isEmail(email)
-    const passwordValid = validator.default.isLength(password, {min: 6, max: undefined})
+    const emailValid = validator.isEmail(email)
+    const passwordValid = validator.isLength(password, {min: 6, max: undefined})
 
     if (!emailValid || !passwordValid) {
       return res.status(400).json({

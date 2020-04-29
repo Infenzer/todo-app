@@ -1,9 +1,9 @@
 @import './addTodo.scss';
 @import './todo.scss';
 @import './header.scss';
-@import './alert.scss';
 
 .main {
+  @import './alert.scss';
   position: relative;
   margin-top: 3.5em;
 }

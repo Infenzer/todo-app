@@ -1,13 +1,16 @@
 
 .wrapper {
   display: flex;
+  position: relative;
   align-items: center;
   flex-direction: column; 
   justify-content: center;
   width: 100%;
   min-height: 100%;
   padding: 20px;
-  margin-top: 7%;
+  margin-top: 8%;
+
+  @import './alert.scss';
 
   a {
     color: #92badd;

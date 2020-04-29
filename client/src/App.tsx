@@ -1,18 +1,13 @@
 import React from 'react'
-import {BrowserRouter, Switch, Route} from 'react-router-dom'
-import Main from './pages/Main'
+import {BrowserRouter} from 'react-router-dom'
 import './style/style.scss'
-import AuthPage from './pages/AuthPage'
-import RegisterPage from './pages/RegisterPage'
+import { useRoutes } from './routes'
  
 const App: React.FC = () => {
+  const routes = useRoutes(false)
   return (
     <BrowserRouter>
-      <Switch>
-        <Route exact path = '/' component = {AuthPage}/>
-        <Route path = '/main' component = {Main}/>
-        <Route path = '/register' component = {RegisterPage}/>
-      </Switch>
+      {routes}
     </BrowserRouter>
   )
 }
