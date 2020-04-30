@@ -15,4 +15,5 @@ export const HIDE_LOADER = 'HIDE_LOADER'
 export const REGISTER = 'REGISTER'
 
 //auth 
-export const AUTH = 'AUTH'
+export const LOGIN = 'LOGIN'
+export const LOGOUT = 'LOGOUT'

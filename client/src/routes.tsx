@@ -8,7 +8,7 @@ export const useRoutes = (isAuth: boolean) => {
   if (isAuth) {
     return (
       <Switch>
-        <Route path = '/' component = {Main}/>
+        <Route exact path = '/' component = {Main}/>
         <Redirect to = '/'/>
       </Switch>
     )

@@ -24,6 +24,7 @@ const fetchRegister = (email: string, password: string) => {
           setTimeout(() => {
             dispatch(hideAlert())
             dispatch(register())
+            dispatch(hideLoader())
           }, 2500)
         },
         e => {

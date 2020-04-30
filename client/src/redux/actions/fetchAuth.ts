@@ -1,17 +1,35 @@
-import { AUTH } from "../types"
+import { LOGIN as LOGIN, LOGOUT } from "../types"
 import Axios from "axios"
 import hideLoader from "./hideLoader"
 import { autoCloseAlert } from "./showAlert"
 import showLoader from "./showLoader"
 
 
-export interface IAuth {
-  type: typeof AUTH
+export interface ILogin {
+  type: typeof LOGIN
 }
 
-const auth = (): IAuth => ({
-  type: AUTH
-})
+export interface ILogout {
+  type: typeof LOGOUT
+}
+
+export const storageKey = 'userData'
+
+export const login = (data: any): ILogin => {
+  localStorage.setItem(storageKey, JSON.stringify(data))
+
+  return {
+    type: LOGIN
+  }
+}
+
+export const logout = (): ILogout => {
+  localStorage.removeItem(storageKey)
+
+  return {
+    type: LOGOUT
+  }
+}
 
 const fetchAuth = (email: string, password: string) => {
   return dispatch => {
@@ -20,7 +38,8 @@ const fetchAuth = (email: string, password: string) => {
     Axios.post('/api/auth/login', {email, password})
       .then(
         res => {
-          dispatch(auth())
+          dispatch(login(res.data))
+          dispatch(hideLoader())
         },
         e => {
           dispatch(hideLoader())
