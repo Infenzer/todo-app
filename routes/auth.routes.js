@@ -36,9 +36,6 @@ router.post('/login', async (req, res) => {
       config.get('jwtSecret'),
       {expiresIn: '1h'}
     )
-
-    console.log(token)
-
     res.status(200).json({token, userId: user.id})
   } catch (e) {
     res.status(500).json({message: "Ошибка при авторизации"})

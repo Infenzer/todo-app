@@ -1,6 +1,6 @@
 import Axios from "axios"
 import {REGISTER} from '../types'
-import showAlert from "./showAlert"
+import showAlert, { autoCloseAlert } from "./showAlert"
 import hideAlert from "./hideAlert"
 import showLoader from "./showLoader"
 import hideLoader from "./hideLoader"
@@ -25,15 +25,10 @@ const fetchRegister = (email: string, password: string) => {
             dispatch(hideAlert())
             dispatch(register())
           }, 2500)
-
         },
         e => {
           dispatch(hideLoader())
-          dispatch(showAlert('ERROR', e.response.data.message))
-
-          setTimeout(() => {
-            dispatch(hideAlert())
-          }, 2500)
+          dispatch(autoCloseAlert('ERROR', e.response.data.message, 2500))
         }
       )
   }

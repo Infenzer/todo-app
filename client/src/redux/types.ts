@@ -13,5 +13,6 @@ export const HIDE_LOADER = 'HIDE_LOADER'
 
 //register
 export const REGISTER = 'REGISTER'
-export const SHOW_REGISTER_ALERT = 'SHOW_REGISTER_ALER'
-export const HIDE_REGISTER_ALERT = 'HIDE_REGISTER_ALERT'
+
+//auth 
+export const AUTH = 'AUTH'

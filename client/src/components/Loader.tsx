@@ -6,7 +6,7 @@ const Loader: React.FC = () => {
     height: '3rem'
   }
   return (
-    <div className="spinner-border d-flex" style={style} role="status">
+    <div className="spinner-border" style={style} role="status">
       <span className="sr-only">Loading...</span>
     </div>
   )
