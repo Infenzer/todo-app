@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import addTodo from '../redux/actions/addTodo'
-import showAlert from '../redux/actions/showAlert'
-import hideAlert from '../redux/actions/hideAlert'
+import { autoCloseAlert } from '../redux/actions/showAlert'
+import Axios from 'axios'
+import { storageKey } from '../redux/actions/fetchAuth'
 
 const AddTodo: React.FC<any> = () => {
   const dispatch = useDispatch()
@@ -11,20 +12,28 @@ const AddTodo: React.FC<any> = () => {
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
 
-    const date = new Date()
-    const dateString = `${date.toDateString()}, (${date.toLocaleTimeString()})`
-
-    if (value.trim() === '') {
-      dispatch(showAlert('WARNING', 'Введите название заметки.'))
-    } else {
-      dispatch(addTodo(value, dateString))
-      setValue('')
-      dispatch(showAlert('SUCCESS', 'Заметка создана'))
+    const token = JSON.parse(localStorage.getItem(storageKey)).token
+    const data = { text: value }
+    const config = {
+      headers: {
+        Authorization: 'Bearer ' + token
+      }
     }
 
-    setTimeout(() => {
-      dispatch(hideAlert())
-    }, 2000);
+    Axios.post('/api/todo/create', data, config) 
+      .then(
+        res => {
+          const { _id: id, text, date } = res.data.todo
+
+          dispatch(addTodo(text, date, id))
+          dispatch(autoCloseAlert('SUCCESS', 'Заметка создана', 2500))
+        },
+        e => {
+          dispatch(autoCloseAlert('WARNING', e.response.data.message, 2500))
+        }
+      )
+
+    setValue('')
   }
 
   return(

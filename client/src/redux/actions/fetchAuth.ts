@@ -15,7 +15,7 @@ export interface ILogout {
 
 export const storageKey = 'userData'
 
-export const login = (data: any): ILogin => {
+export const login = (data: string): ILogin => {
   localStorage.setItem(storageKey, JSON.stringify(data))
 
   return {

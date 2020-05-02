@@ -8,10 +8,10 @@ const useAuth = () => {
   const isAuth = useSelector((state: RootState) => state.auth.isAuth)
 
   useEffect(() => {
-    const data = JSON.parse(localStorage.getItem(storageKey))
+    const token = JSON.parse(localStorage.getItem(storageKey))
     
-    if (data) {
-      dispath(login(data))
+    if (token) {
+      dispath(login(token))
     }
   }, [])
 

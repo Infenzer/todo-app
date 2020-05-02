@@ -2,18 +2,16 @@ import { ADD_TODO } from "../types";
 
 export interface IAddTodo {
   type: 'ADD_TODO'
-  id: number
+  id: string
   payload: {
     text: string
     timeCreate: string
   }
 }
 
-let calcId = 0
-
-const addTodo = (text: string, timeCreate: string): IAddTodo => ({
+const addTodo = (text: string, timeCreate: string, id: string): IAddTodo => ({
   type: ADD_TODO,
-  id: calcId++,
+  id: id,
   payload: {
     text,
     timeCreate,
