@@ -3,11 +3,11 @@ import { TOGGLE_TODO } from "../types";
 export interface IToggleTodo {
   type: 'TOGGLE_TODO'
   payload: {
-    id: number
+    id: string
   }
 }
 
-const toggleTodo = (id: number): IToggleTodo => ({
+const toggleTodo = (id: string): IToggleTodo => ({
   type: TOGGLE_TODO,
   payload: {
     id

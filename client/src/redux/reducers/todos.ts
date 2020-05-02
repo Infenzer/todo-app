@@ -1,34 +1,40 @@
 import { IAddTodo } from "../actions/addTodo"
 import { IDeleteTodo } from "../actions/deleteTodo"
 import { IToggleTodo } from "../actions/toggleTodo"
+import { ILoadTodoList } from "../actions/fetchTodoList"
 
 export interface ITodo {
   text: string
-  id: number
+  _id: string
   checked: boolean
-  timeCreate: string
+  date: string
 }
 
 export type TodosState = ITodo[]
-type ActionType = IAddTodo | IDeleteTodo | IToggleTodo
+type ActionType = IAddTodo | IDeleteTodo | IToggleTodo | ILoadTodoList
 
 const todos = (state: TodosState = [], action: ActionType): TodosState => {
   switch (action.type) {
+    case 'LOAD_TODO_LIST':
+      return [
+        ...state,
+        ...action.payload.todoList
+      ]
     case 'ADD_TODO':
       return [
         ...state,
         {
-          id: action.id,
+          _id: action.id,
           checked: false,
           text: action.payload.text,
-          timeCreate: action.payload.timeCreate
+          date: action.payload.timeCreate
         }
       ]
     case 'DELETE_TODO': 
-      return state.filter(todo => todo.id !== action.payload.id)
+      return state.filter(todo => todo._id !== action.payload.id)
     case 'TOGGLE_TODO':
       return state.map(todo => {
-        if (todo.id === action.payload.id) {
+        if (todo._id === action.payload.id) {
           return {...todo, checked: !todo.checked}
         }
         return todo

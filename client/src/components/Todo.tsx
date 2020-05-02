@@ -2,17 +2,17 @@ import React from 'react'
 import { ITodo } from '../redux/reducers/todos'
 
 type TodoProps = ITodo & {
-  onDeleteClick: (id: number) => any
-  onToggleTodo: (id: number) => any
+  onDeleteClick: (id: string) => any
+  onToggleTodo: (id: string) => any
 }
 
 const Todo: React.FC<TodoProps> = (props) => {
   const handleCloseClick = () => {
-    props.onDeleteClick(props.id)
+    props.onDeleteClick(props._id)
   }
   
   const handleToggleClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    props.onToggleTodo(props.id)
+    props.onToggleTodo(props._id)
     e.currentTarget.classList.toggle('checked')
   }
 
@@ -27,7 +27,7 @@ const Todo: React.FC<TodoProps> = (props) => {
         />
         <p className="text">{props.text}</p>
         <div className="todo-create-date">
-          <p>{props.timeCreate}</p>
+          <p>{props.date}</p>
         </div>
       </div>
       <a className="link-close" href="#" onClick={handleCloseClick}>
