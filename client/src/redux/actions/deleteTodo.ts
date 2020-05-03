@@ -1,7 +1,7 @@
 import { DELETE_TODO } from "../types"
 import Axios from "axios"
-import { storageKey } from "./fetchAuth"
 import { autoCloseAlert } from "./showAlert"
+import { getAxiosConfig } from "../axiosConfig"
 
 export interface IDeleteTodo {
   type: 'DELETE_TODO'
@@ -19,12 +19,7 @@ const deleteTodo = (id: string): IDeleteTodo => ({
 
 export const fetchDeleteTodo = (id: string) => {
   return dispatch => {
-    const token = JSON.parse(localStorage.getItem(storageKey)).token
-    const config = {
-      headers: {
-        Authorization: 'Bearer ' + token
-      }
-    }
+    const config = getAxiosConfig()
     const data = { id }
 
     Axios.post('/api/todo/delete', data, config)

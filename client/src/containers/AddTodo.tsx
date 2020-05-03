@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 import addTodo from '../redux/actions/addTodo'
 import { autoCloseAlert } from '../redux/actions/showAlert'
 import Axios from 'axios'
-import { storageKey } from '../redux/actions/fetchAuth'
+import { getAxiosConfig } from '../redux/axiosConfig'
 
 const AddTodo: React.FC<any> = () => {
   const dispatch = useDispatch()
@@ -12,13 +12,8 @@ const AddTodo: React.FC<any> = () => {
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
 
-    const token = JSON.parse(localStorage.getItem(storageKey)).token
+    const config = getAxiosConfig()
     const data = { text: value }
-    const config = {
-      headers: {
-        Authorization: 'Bearer ' + token
-      }
-    }
 
     Axios.post('/api/todo/create', data, config) 
       .then(

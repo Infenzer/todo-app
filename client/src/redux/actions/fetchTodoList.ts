@@ -1,9 +1,10 @@
 import Axios from "axios"
-import { storageKey, logout } from "./fetchAuth"
+import { logout } from "./fetchAuth"
 import { LOAD_TODO_LIST } from "../types"
 import { ITodo } from "../reducers/todos"
 import showLoader from "./showLoader"
 import hideLoader from "./hideLoader"
+import { getAxiosConfig } from "../axiosConfig"
 
 export interface ILoadTodoList {
   type: typeof LOAD_TODO_LIST
@@ -21,12 +22,7 @@ export const loadTodoList = (todoList: ITodo[]): ILoadTodoList => ({
 
 const fetchTodoList = () => {
   return dispatch => {
-    const token = JSON.parse(localStorage.getItem(storageKey)).token
-    const config = {
-      headers: {
-        Authorization: 'Bearer ' + token
-      }
-    }
+    const config = getAxiosConfig()
     
     dispatch(showLoader())
 

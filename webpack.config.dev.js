@@ -5,9 +5,6 @@ const {CleanWebpackPlugin} = require('clean-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 
-const isDev = process.env.NODE_ENV == 'dev '
-const isProd = false //!isDev
-
 const cssLoaders = extra => {
   const loaders = [
     {
@@ -42,7 +39,7 @@ module.exports = {
     publicPath: '/',
   },
 
-  devtool: isProd ? 'source-map' : false,
+  devtool: false,
 
   resolve: {
     extensions: [

@@ -1,7 +1,7 @@
 import { TOGGLE_TODO } from "../types";
-import { storageKey } from "./fetchAuth";
 import Axios from "axios";
 import { autoCloseAlert } from "./showAlert";
+import { getAxiosConfig } from "../axiosConfig";
 
 export interface IToggleTodo {
   type: 'TOGGLE_TODO'
@@ -19,12 +19,7 @@ const toggleTodo = (id: string): IToggleTodo => ({
 
 export const fetchToggleTodo = (id: string) => {
   return dispatch => {
-    const token = JSON.parse(localStorage.getItem(storageKey)).token
-    const config = {
-      headers: {
-        Authorization: 'Bearer ' + token
-      }
-    }
+    const config = getAxiosConfig()
     const data = { id }
 
     Axios.post('/api/todo/toggle/checked', data, config)

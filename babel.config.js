@@ -3,6 +3,7 @@ module.exports = {
     ['@babel/preset-env', {
       useBuiltIns: 'usage',
       corejs: 3,
+      loose: true
       // debug: true,
       // exclude: ['es6.regexp.to-string', 'es6.number.constructor'],
     }],
