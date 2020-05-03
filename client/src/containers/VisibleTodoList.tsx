@@ -1,8 +1,8 @@
 import { connect, ConnectedProps } from "react-redux";
 import TodoList from "../components/TodoList";
 import { RootState } from "../redux/reducers";
-import deleteTodo from "../redux/actions/deleteTodo";
-import toggleTodo from "../redux/actions/toggleTodo";
+import { fetchDeleteTodo } from "../redux/actions/deleteTodo";
+import { fetchToggleTodo } from "../redux/actions/toggleTodo";
 import fetchTodoList from "../redux/actions/fetchTodoList";
 
 export type TodoListProps = ConnectedProps<typeof connector>
@@ -14,11 +14,11 @@ const mapStateToProps = (state: RootState) => ({
 
 const mapDispatchToProps = dispatch => ({
   deleteTodo: (id: string) => {
-    return dispatch(deleteTodo(id))
+    return dispatch(fetchDeleteTodo(id))
   },
   
   toggleTodo: (id: string) => {
-    return dispatch(toggleTodo(id))
+    return dispatch(fetchToggleTodo(id))
   },
 
   loadTodoList: () => {

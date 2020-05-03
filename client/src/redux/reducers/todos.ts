@@ -17,7 +17,6 @@ const todos = (state: TodosState = [], action: ActionType): TodosState => {
   switch (action.type) {
     case 'LOAD_TODO_LIST':
       return [
-        ...state,
         ...action.payload.todoList
       ]
     case 'ADD_TODO':

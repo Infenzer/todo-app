@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import { ITodo } from '../redux/reducers/todos'
 
 type TodoProps = ITodo & {
@@ -7,6 +7,13 @@ type TodoProps = ITodo & {
 }
 
 const Todo: React.FC<TodoProps> = (props) => {
+  const todo = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    if (props.checked) {
+      todo.current.classList.add('checked')
+    }
+  })
+
   const handleCloseClick = () => {
     props.onDeleteClick(props._id)
   }
@@ -18,7 +25,7 @@ const Todo: React.FC<TodoProps> = (props) => {
 
   return (
     <li className="todo list-group-item">
-      <div className="todo-main" onClick={(e) => handleToggleClick(e)}>
+      <div ref={todo} className="todo-main" onClick={(e) => handleToggleClick(e)}>
         <input
           type="checkbox"
           className="todo-checkbox"

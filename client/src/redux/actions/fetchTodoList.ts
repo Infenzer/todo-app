@@ -1,10 +1,9 @@
 import Axios from "axios"
-import { storageKey } from "./fetchAuth"
+import { storageKey, logout } from "./fetchAuth"
 import { LOAD_TODO_LIST } from "../types"
 import { ITodo } from "../reducers/todos"
 import showLoader from "./showLoader"
 import hideLoader from "./hideLoader"
-import showAlert from "./showAlert"
 
 export interface ILoadTodoList {
   type: typeof LOAD_TODO_LIST
@@ -33,12 +32,12 @@ const fetchTodoList = () => {
 
     Axios.get('/api/todo', config)
       .then(res => {
-        console.log(res)
         dispatch(loadTodoList(res.data.todoList))
         dispatch(hideLoader())
       },
       e => {
-        dispatch(showAlert('WARNING', e.response.data.message))
+        dispatch(logout())
+        dispatch(hideLoader())
         console.log(e.response.data.message)
       })
   }
