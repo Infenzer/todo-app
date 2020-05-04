@@ -3,7 +3,6 @@ const webpack = require('webpack')
 const HTMLWebpackPlugin = require('html-webpack-plugin')
 const {CleanWebpackPlugin} = require('clean-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 const cssLoaders = extra => {
   const loaders = [
@@ -39,7 +38,7 @@ module.exports = {
     publicPath: '/',
   },
 
-  devtool: false,
+  devtool: 'cheap-module-eval-source-map',
 
   resolve: {
     extensions: [
@@ -57,13 +56,6 @@ module.exports = {
       //   collapseWhitespace: isProd
       // }
     }),
-
-    new CopyWebpackPlugin([
-      {
-        from: './img',
-        to: './img'
-      },
-    ]),
     
     new CleanWebpackPlugin(),
 

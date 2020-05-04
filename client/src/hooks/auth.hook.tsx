@@ -11,7 +11,7 @@ const useAuth = () => {
     const token = JSON.parse(localStorage.getItem(storageKey))
     
     if (token) {
-      dispath(login(token))
+      dispath(login())
     }
   }, [])
 

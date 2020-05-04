@@ -3,7 +3,7 @@ const webpack = require('webpack')
 const HTMLWebpackPlugin = require('html-webpack-plugin')
 const {CleanWebpackPlugin} = require('clean-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const CopyWebpackPlugin = require('copy-webpack-plugin')
+const TerserPlugin = require('terser-webpack-plugin');
 
 const cssLoaders = extra => {
   const loaders = [
@@ -24,7 +24,7 @@ module.exports = {
   mode: 'production',
   entry: {
     main: [
-      'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true',
+      // 'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true',
       './index.tsx'
     ],
   },
@@ -39,6 +39,8 @@ module.exports = {
     splitChunks: {
       chunks: 'all',
     },
+    minimize: true,
+    minimizer: [new TerserPlugin()]
   },
 
   devtool: 'hidden-source-map',
@@ -59,13 +61,6 @@ module.exports = {
         collapseWhitespace: true
       }
     }),
-
-    new CopyWebpackPlugin([
-      {
-        from: './img',
-        to: './img'
-      },
-    ]),
     
     new CleanWebpackPlugin(),
 
@@ -75,10 +70,6 @@ module.exports = {
         collapseWhitespace: true
       }
     }),
-
-    new webpack.optimize.OccurrenceOrderPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoEmitOnErrorsPlugin()
   ],
 
   module: {
@@ -90,7 +81,7 @@ module.exports = {
 
       { 
         test: /\.(js|ts|tsx|jsx)$/i,
-        exclude: /node_modules/,
+        exclude: /(node_modules|bower_components)/,
         use: {
           loader: 'babel-loader'
         },

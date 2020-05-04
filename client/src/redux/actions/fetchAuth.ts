@@ -15,9 +15,7 @@ export interface ILogout {
 
 export const storageKey = 'userData'
 
-export const login = (data: string): ILogin => {
-  localStorage.setItem(storageKey, JSON.stringify(data))
-
+export const login = (): ILogin => {
   return {
     type: LOGIN
   }
@@ -38,7 +36,10 @@ const fetchAuth = (email: string, password: string) => {
     Axios.post('/api/auth/login', {email, password})
       .then(
         res => {
-          dispatch(login(res.data))
+          const token = res.data
+
+          localStorage.setItem(storageKey, JSON.stringify(token))
+          dispatch(login())
           dispatch(hideLoader())
         },
         e => {

@@ -1,6 +1,7 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { logout } from '../redux/actions/fetchAuth'
+import logo from '../img/list-ul-solid.svg'
 
 const Header: React.FC = () => {
   const dispatch = useDispatch()
@@ -11,7 +12,7 @@ const Header: React.FC = () => {
   return (
     <div className="header">
       <a className="logo" href="#">
-        <img className="logo-img" src="/img/list-ul-solid.svg"/>
+        <img className="logo-img" src={logo}/>
         <h2 className="logo-text">Todo List</h2>
       </a>
       <button onClick={handleClick} type="button" className="btn btn-outline-dark">Выйти</button>

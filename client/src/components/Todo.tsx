@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import { ITodo } from '../redux/reducers/todos'
+import trash from '../img/trash-solid.svg'
 
 type TodoProps = ITodo & {
   onDeleteClick: (id: string) => any
@@ -38,7 +39,7 @@ const Todo: React.FC<TodoProps> = (props) => {
         </div>
       </div>
       <a className="link-close" href="#" onClick={handleCloseClick}>
-        <img className="link-img-close" src="./img/trash-solid.svg"/>
+        <img className="link-img-close" src={trash}/>
       </a>
     </li>
   )
